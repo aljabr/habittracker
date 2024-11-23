@@ -1,6 +1,7 @@
 // File: app/src/main/java/com/example/habittracker/HabitAdapter.java
 package com.example.to_do;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -19,10 +19,10 @@ import java.util.Date;
 import java.util.List;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHolder> {
-    private Context context;
+    private final Context context;
     private List<Habit> habitList;
 
-    public HabitAdapter(Context context, List<Habit> habitList) {
+    public HabitAdapter(Context context, List<Habit> habitList, HabitViewModel habitViewModel) {
         this.context = context;
         this.habitList = habitList;
     }
@@ -34,6 +34,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         return new HabitViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull HabitViewHolder holder, int position) {
         Habit habit = habitList.get(position);
@@ -88,7 +89,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.HabitViewHol
         notifyDataSetChanged();
     }
 
-    public class HabitViewHolder extends RecyclerView.ViewHolder {
+    public static class HabitViewHolder extends RecyclerView.ViewHolder {
         TextView textViewName, textViewDate, textViewReminderTime;
         Button buttonComplete, buttonDelete;
 

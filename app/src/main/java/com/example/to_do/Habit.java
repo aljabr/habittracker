@@ -6,7 +6,7 @@ public class Habit {
     private String name;
     private int status;
     private String date;
-    private long reminderTime; // New field
+    private long reminderTime;
 
     // Constructors
     public Habit() {}

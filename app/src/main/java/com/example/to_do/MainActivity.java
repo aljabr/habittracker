@@ -17,11 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.navigation.NavigationView;
@@ -39,10 +38,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
-    private ViewPager2 viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
-    private FloatingActionButton fabAdd;
+    private HabitViewModel habitViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +49,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
-        // Initialize DrawerLayout and NavigationView
-        drawerLayout = findViewById(R.id.drawer_layout_main);
-        NavigationView navigationView = findViewById(R.id.navigation_view_main);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
         // Request Notification Permission
         requestNotificationPermission();
-
         // Initialize ViewPager and TabLayout
-        viewPager = findViewById(R.id.viewPager);
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
 
         // Attach TabLayout and ViewPager2
@@ -84,31 +73,15 @@ public class MainActivity extends AppCompatActivity
                     }
                 }).attach();
 
+        // Initialize ViewModel
+        habitViewModel = new ViewModelProvider(this).get(HabitViewModel.class);
+
         // Floating Action Button to add new habit
-        fabAdd = findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(v -> {
-            showAddHabitBottomSheet();
-        });
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        fabAdd.setOnClickListener(v -> showAddHabitBottomSheet());
     }
 
-    // Handle navigation item clicks
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
 
-        if (id == R.id.nav_home) {
-            // Already on Home
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (id == R.id.nav_add_habit) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            showAddHabitBottomSheet();
-        } else if (id == R.id.nav_history) {
-            Intent intent = new Intent(MainActivity.this, HabitHistoryActivity.class);
-            startActivity(intent);
-        }
-
-        return true;
-    }
 
     // Show the bottom sheet dialog for adding a habit
     private void showAddHabitBottomSheet() {
@@ -124,9 +97,7 @@ public class MainActivity extends AppCompatActivity
 
         final long[] reminderTime = {0}; // To store selected time
 
-        buttonSetReminder.setOnClickListener(v -> {
-            showTimePickerDialog(textViewReminderTime, reminderTime);
-        });
+        buttonSetReminder.setOnClickListener(v -> showTimePickerDialog(textViewReminderTime, reminderTime));
 
         buttonSave.setOnClickListener(v -> {
             String habitName = editTextHabitName.getText().toString().trim();
@@ -135,8 +106,8 @@ public class MainActivity extends AppCompatActivity
                 dbHelper.addHabit(habitName, reminderTime[0]);
                 Toast.makeText(MainActivity.this, "Habit added successfully!", Toast.LENGTH_SHORT).show();
 
-                // Notify fragments to update their lists
-                refreshFragments();
+                // Refresh data in ViewModel
+                habitViewModel.refreshData();
 
                 bottomSheetDialog.dismiss();
 
@@ -148,17 +119,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        buttonCancel.setOnClickListener(v -> {
-            bottomSheetDialog.dismiss();
-        });
+        buttonCancel.setOnClickListener(v -> bottomSheetDialog.dismiss());
 
         bottomSheetDialog.show();
-    }
-
-    // Refresh all fragments
-    private void refreshFragments() {
-        int currentItem = viewPager.getCurrentItem();
-        viewPagerAdapter.notifyItemChanged(currentItem);
     }
 
     // Show TimePickerDialog to set reminder time
@@ -211,13 +174,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    // Handle back button press to close navigation drawer if open
     @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }

@@ -1,15 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutAllHabits"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
+    <!-- TableLayout for Stats -->
+    <TableLayout
+        android:id="@+id/tableLayoutStats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- First Row: Total Habits -->
+        <TableRow android:layout_width="193dp">
+
+            <TextView
+                android:padding="8dp"
+                android:text="@string/total_habits"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewTotalHabits"
+                android:padding="8dp"
+                android:text="@string/_0" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="@string/completed_habits"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewCompletedHabits"
+                android:padding="8dp"
+                android:text="@string/_0" />
+
+            <TextView
+                android:padding="8dp"
+                android:text="Pending Habits"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewPendingHabits"
+                android:padding="8dp"
+                android:text="@string/_0" />
+        </TableRow>
+
+        <!-- Second Row: Completed Habits -->
+        <TableRow>
+
+        </TableRow>
+
+        <!-- Third Row: Pending Habits -->
+        <TableRow>
+
+        </TableRow>
+
+<!--        &lt;!&ndash; Fourth Row: Completion Rate &ndash;&gt;-->
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:text="Completion Rate"-->
+<!--                android:textStyle="bold"-->
+<!--                android:padding="8dp" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/textViewCompletionRate"-->
+<!--                android:text="0%"-->
+<!--                android:padding="8dp" />-->
+<!--        </TableRow>-->
+
+    </TableLayout>
 
     <!-- RecyclerView for All Habits -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAllHabits"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableLayoutStats"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -26,8 +26,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Habit History Activity -->
-        <activity android:name=".HabitHistoryActivity"/>
 
         <receiver android:name=".ReminderBroadcastReceiver" />
     </application>

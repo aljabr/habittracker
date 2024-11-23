@@ -31,4 +31,11 @@
     <string name="view_history">View History</string>
     <string name="enter_habit_name">Enter habit name</string>
     <string name="home">Home</string>
+    <string name="enter_habit_name1">Enter habit name</string>
+    <string name="habit_name">Habit Name</string>
+    <string name="date">Date</string>
+    <string name="reminder_time">Reminder Time</string>
+    <string name="total_habits">Total Habits</string>
+    <string name="_0">0</string>
+    <string name="completed_habits">Completed Habits</string>
 </resources>
