@@ -1,0 +1,65 @@
+<!-- File: app/src/main/res/layout/bottom_sheet_add_habit.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_sheet_add_habit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textViewAddHabitTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Habit"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- EditText for Habit Name -->
+    <EditText
+        android:id="@+id/editTextHabitName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter habit name"
+        android:layout_marginTop="16dp" />
+
+    <!-- TextView for Reminder Time -->
+    <TextView
+        android:id="@+id/textViewReminderTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No reminder set"
+        android:layout_marginTop="16dp" />
+
+    <!-- Button to Set Reminder -->
+    <Button
+        android:id="@+id/buttonSetReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Reminder"
+        android:layout_marginTop="8dp" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
