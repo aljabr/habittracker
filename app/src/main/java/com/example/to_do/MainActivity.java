@@ -145,10 +145,14 @@ public class MainActivity extends AppCompatActivity
             reminderTime[0] = selectedTime.getTimeInMillis();
             String timeText = "Reminder set for: " + DateFormat.getTimeFormat(this).format(new Date(reminderTime[0]));
             textView.setText(timeText);
+
+            // Add the toast message confirming the reminder is set
+            Toast.makeText(MainActivity.this, "Reminder successfully set!", Toast.LENGTH_SHORT).show(); // Fifth Toast Message
         }, hour, minute, true);
 
         timePickerDialog.show();
     }
+
 
     // Schedule Reminder using AlarmManager
     private void scheduleReminder(String habitName, long reminderTimeInMillis) {
